@@ -785,7 +785,7 @@
     "termsOfService": "https://www.mongodb.com/mongodb-management-service-terms-and-conditions",
     "title": "MongoDB Atlas Administration API",
     "version": "2.0",
-    "x-xgen-sha": "3ffd483634e072282665b741f268ba9958054ed9"
+    "x-xgen-sha": "825daf7307885fdbe6daeba8ab00a53245cce817"
   },
   "openapi": "3.0.1",
   "paths": {
