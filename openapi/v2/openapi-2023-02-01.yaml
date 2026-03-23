@@ -12447,6 +12447,7 @@ components:
                             - INTERFACE_ENDPOINT_CREATED
                             - INTERFACE_ENDPOINT_DELETED
                             - INTERFACE_ENDPOINT_PATCHED
+                            - INTERFACE_ENDPOINT_RETRIED
                           title: Private Link Audit Types
                           type: string
                         - enum:
@@ -15558,6 +15559,7 @@ components:
                     - INTERFACE_ENDPOINT_CREATED
                     - INTERFACE_ENDPOINT_DELETED
                     - INTERFACE_ENDPOINT_PATCHED
+                    - INTERFACE_ENDPOINT_RETRIED
                   title: Private Link Audit Types
                   type: string
                 - enum:
@@ -34978,7 +34980,7 @@ info:
     termsOfService: https://www.mongodb.com/mongodb-management-service-terms-and-conditions
     title: MongoDB Atlas Administration API
     version: "2.0"
-    x-xgen-sha: ab8428049bee5cc1c745856be5809d28d6f628ea
+    x-xgen-sha: b314be47235c906c0aaf102c9b401871534b577a
 openapi: 3.0.1
 paths:
     /api/atlas/v2:
