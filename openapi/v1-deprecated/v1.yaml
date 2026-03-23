@@ -15513,7 +15513,8 @@
                   "ENDPOINT_SERVICE_DELETED",
                   "INTERFACE_ENDPOINT_CREATED",
                   "INTERFACE_ENDPOINT_DELETED",
-                  "INTERFACE_ENDPOINT_PATCHED"
+                  "INTERFACE_ENDPOINT_PATCHED",
+                  "INTERFACE_ENDPOINT_RETRIED"
                 ],
                 "title": "Private Link Audit Types",
                 "type": "string"
@@ -19325,7 +19326,8 @@
               "ENDPOINT_SERVICE_DELETED",
               "INTERFACE_ENDPOINT_CREATED",
               "INTERFACE_ENDPOINT_DELETED",
-              "INTERFACE_ENDPOINT_PATCHED"
+              "INTERFACE_ENDPOINT_PATCHED",
+              "INTERFACE_ENDPOINT_RETRIED"
             ],
             "title": "Private Link Audit Types",
             "type": "string"
