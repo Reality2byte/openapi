@@ -1364,7 +1364,7 @@
         "x-xgen-docs-url": "https://mongodb.com/docs/atlas/reference/api-resources-spec/v1/#tag/Projects/operation/getProject"
       },
       "patch": {
-        "description": "Updates the human-readable label that identifies the specified project, or the tags associated with the project. To use this resource, the requesting Service Account or API Key must have the Project Owner role.",
+        "description": "Updates the human-readable label that identifies the specified project, the tags associated with the project, or the default alert settings. To use this resource, the requesting Service Account or API Key must have the Project Owner role.",
         "operationId": "updateProject",
         "parameters": [
           {
@@ -36497,7 +36497,8 @@
                   "GROUP_CHARTS_ACTIVATION_REQUESTED",
                   "GROUP_CHARTS_ACTIVATED",
                   "GROUP_CHARTS_UPGRADED",
-                  "GROUP_CHARTS_RESET"
+                  "GROUP_CHARTS_RESET",
+                  "GROUP_DEFAULT_ALERTS_SETTINGS_CHANGED"
                 ]
               },
               {
@@ -39924,7 +39925,8 @@
               "GROUP_CHARTS_ACTIVATION_REQUESTED",
               "GROUP_CHARTS_ACTIVATED",
               "GROUP_CHARTS_UPGRADED",
-              "GROUP_CHARTS_RESET"
+              "GROUP_CHARTS_RESET",
+              "GROUP_DEFAULT_ALERTS_SETTINGS_CHANGED"
             ]
           },
           {
@@ -43946,7 +43948,7 @@
           },
           "withDefaultAlertsSettings": {
             "type": "boolean",
-            "description": "Flag that indicates whether to create the project with default alert settings. This setting cannot be updated after project creation.",
+            "description": "Flag that indicates whether to create the project with default alert settings.",
             "default": true
           }
         }
@@ -44395,6 +44397,10 @@
             "x-xgen-IPA-exception": {
               "xgen-IPA-124-array-max-items": "Schema predates IPA validation."
             }
+          },
+          "withDefaultAlertsSettings": {
+            "type": "boolean",
+            "description": "Flag that indicates whether the project can automatically create default alerts."
           }
         },
         "description": "Request view to update the group."
