@@ -33475,6 +33475,16 @@ components:
                     items:
                         $ref: '#/components/schemas/Document'
                     type: array
+                tier:
+                    description: Selected tier for the Stream Workspace. Configures Memory / VCPU allowances.
+                    enum:
+                        - SP50
+                        - SP30
+                        - SP10
+                        - SP5
+                        - SP2
+                    title: Stream Workspace Tier
+                    type: string
             type: object
         StreamsProcessorWithStats:
             description: An atlas stream processor with optional stats.
@@ -36897,7 +36907,7 @@ info:
     termsOfService: https://www.mongodb.com/mongodb-management-service-terms-and-conditions
     title: MongoDB Atlas Administration API
     version: "2.0"
-    x-xgen-sha: b6a75a90517e9191f3d91801704ccee2307abb9e
+    x-xgen-sha: a22f2c0e176a392ebad39840a2fcb87e9fe0bf2a
 openapi: 3.0.1
 paths:
     /api/atlas/v2:
