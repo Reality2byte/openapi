@@ -35578,6 +35578,106 @@
         "description": "Deleted copy setting whose backup copies need to also be deleted.",
         "writeOnly": true
       },
+      "DeprecatedStreamProcessorMetricThreshold": {
+        "required": ["metricName"],
+        "type": "object",
+        "properties": {
+          "metricName": {
+            "type": "string",
+            "description": "Human-readable label that identifies the metric against which MongoDB Cloud checks the configured `metricThreshold.threshold`."
+          },
+          "mode": {
+            "type": "string",
+            "description": "MongoDB Cloud computes the current metric value as an average.",
+            "enum": ["AVERAGE"]
+          },
+          "operator": {
+            "type": "string",
+            "description": "Comparison operator to apply when checking the current metric value.",
+            "enum": ["LESS_THAN", "GREATER_THAN"]
+          },
+          "threshold": {
+            "type": "number",
+            "description": "Value of metric that, when exceeded, triggers an alert.",
+            "format": "double"
+          },
+          "units": {
+            "type": "string",
+            "description": "Element used to express the quantity. This can be an element of time, storage capacity, and the like.",
+            "enum": [
+              "bits",
+              "Kbits",
+              "Mbits",
+              "Gbits",
+              "bytes",
+              "KB",
+              "MB",
+              "GB",
+              "TB",
+              "PB",
+              "nsec",
+              "msec",
+              "sec",
+              "min",
+              "hours",
+              "million minutes",
+              "days",
+              "requests",
+              "1000 requests",
+              "tokens",
+              "million tokens",
+              "pixels",
+              "billion pixels",
+              "GB seconds",
+              "GB hours",
+              "GB days",
+              "RPU",
+              "thousand RPU",
+              "million RPU",
+              "WPU",
+              "thousand WPU",
+              "million WPU",
+              "count",
+              "thousand",
+              "million",
+              "billion"
+            ],
+            "x-xgen-IPA-exception": {
+              "xgen-IPA-123-allowable-enum-values-should-not-exceed-20": "Schema predates IPA validation.",
+              "xgen-IPA-123-enum-values-must-be-upper-snake-case": "Schema predates IPA validation."
+            }
+          }
+        },
+        "description": "Threshold value that triggers an alert. Deprecated: use `metricThreshold` instead.",
+        "deprecated": true,
+        "discriminator": {
+          "propertyName": "metricName",
+          "mapping": {
+            "STREAM_PROCESSOR_CHANGE_STREAM_LAG": "#/components/schemas/TimeMetricThresholdView",
+            "STREAM_PROCESSOR_DLQ_MESSAGE_COUNT": "#/components/schemas/DLQRawMetricThresholdView",
+            "STREAM_PROCESSOR_KAFKA_LAG": "#/components/schemas/KafkaRawMetricThresholdView",
+            "STREAM_PROCESSOR_OUTPUT_MESSAGE_COUNT": "#/components/schemas/RawMetricThresholdView"
+          }
+        },
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/KafkaRawMetricThresholdView"
+          },
+          {
+            "$ref": "#/components/schemas/TimeMetricThresholdView"
+          },
+          {
+            "$ref": "#/components/schemas/DLQRawMetricThresholdView"
+          },
+          {
+            "$ref": "#/components/schemas/RawMetricThresholdView"
+          }
+        ],
+        "x-xgen-IPA-exception": {
+          "xgen-IPA-123-allowable-enum-values-should-not-exceed-20": "Pre-existing schema and validations inherited from StreamProcessorMetricThreshold.",
+          "xgen-IPA-123-enum-values-must-be-upper-snake-case": "Pre-existing schema and validations inherited from StreamProcessorMetricThreshold."
+        }
+      },
       "Destination": {
         "required": ["clusterName", "groupId", "hostnameSchemaType"],
         "type": "object",
@@ -42851,7 +42951,6 @@
             "RESTARTS_IN_LAST_HOUR": "#/components/schemas/RawMetricAlertView",
             "SEARCH_INDEX_SIZE": "#/components/schemas/DataMetricAlertView",
             "SEARCH_MAX_FIELDS_INDEXED": "#/components/schemas/RawMetricAlertView",
-            "SEARCH_PROCESS_THROTTLING": "#/components/schemas/RawMetricAlertView",
             "SEARCH_MAX_NGRAM_FIELDS_INDEXED": "#/components/schemas/RawMetricAlertView",
             "SEARCH_MAX_NUMBER_OF_LUCENE_DOCS": "#/components/schemas/NumberMetricAlertView",
             "SEARCH_NUMBER_OF_FIELDS_IN_INDEX": "#/components/schemas/RawMetricAlertView",
@@ -42862,6 +42961,7 @@
             "SEARCH_OPCOUNTER_GETMORE": "#/components/schemas/RawMetricAlertView",
             "SEARCH_OPCOUNTER_INSERT": "#/components/schemas/RawMetricAlertView",
             "SEARCH_OPCOUNTER_UPDATE": "#/components/schemas/RawMetricAlertView",
+            "SEARCH_PROCESS_THROTTLING": "#/components/schemas/RawMetricAlertView",
             "SEARCH_REPLICATION_LAG": "#/components/schemas/TimeMetricAlertView",
             "SWAP_USAGE_FREE": "#/components/schemas/DataMetricAlertView",
             "SWAP_USAGE_USED": "#/components/schemas/DataMetricAlertView",
@@ -43254,7 +43354,6 @@
             "RESTARTS_IN_LAST_HOUR": "#/components/schemas/RawMetricEventView",
             "SEARCH_INDEX_SIZE": "#/components/schemas/DataMetricEventView",
             "SEARCH_MAX_FIELDS_INDEXED": "#/components/schemas/RawMetricEventView",
-            "SEARCH_PROCESS_THROTTLING": "#/components/schemas/RawMetricEventView",
             "SEARCH_MAX_NGRAM_FIELDS_INDEXED": "#/components/schemas/RawMetricEventView",
             "SEARCH_MAX_NUMBER_OF_LUCENE_DOCS": "#/components/schemas/NumberMetricEventView",
             "SEARCH_NUMBER_OF_FIELDS_IN_INDEX": "#/components/schemas/RawMetricEventView",
@@ -43265,6 +43364,7 @@
             "SEARCH_OPCOUNTER_GETMORE": "#/components/schemas/RawMetricEventView",
             "SEARCH_OPCOUNTER_INSERT": "#/components/schemas/RawMetricEventView",
             "SEARCH_OPCOUNTER_UPDATE": "#/components/schemas/RawMetricEventView",
+            "SEARCH_PROCESS_THROTTLING": "#/components/schemas/RawMetricEventView",
             "SEARCH_REPLICATION_LAG": "#/components/schemas/TimeMetricEventView",
             "SWAP_USAGE_FREE": "#/components/schemas/DataMetricEventView",
             "SWAP_USAGE_USED": "#/components/schemas/DataMetricEventView",
@@ -43513,7 +43613,6 @@
             "RESTARTS_IN_LAST_HOUR": "#/components/schemas/RestartsInLastHourRawMetricThresholdView",
             "SEARCH_INDEX_SIZE": "#/components/schemas/SearchIndexSizeDataMetricThresholdView",
             "SEARCH_MAX_FIELDS_INDEXED": "#/components/schemas/SearchMaxFieldsIndexedRawMetricThresholdView",
-            "SEARCH_PROCESS_THROTTLING": "#/components/schemas/SearchProcessThrottlingRawMetricThresholdView",
             "SEARCH_MAX_NGRAM_FIELDS_INDEXED": "#/components/schemas/SearchMaxNgramFieldsIndexedRawMetricThresholdView",
             "SEARCH_MAX_NUMBER_OF_LUCENE_DOCS": "#/components/schemas/NumberMetricThresholdView",
             "SEARCH_NUMBER_OF_FIELDS_IN_INDEX": "#/components/schemas/SearchNumberOfFieldsInIndexRawMetricThresholdView",
@@ -43524,6 +43623,7 @@
             "SEARCH_OPCOUNTER_GETMORE": "#/components/schemas/SearchOpCounterGetMoreRawMetricThresholdView",
             "SEARCH_OPCOUNTER_INSERT": "#/components/schemas/SearchOpCounterInsertRawMetricThresholdView",
             "SEARCH_OPCOUNTER_UPDATE": "#/components/schemas/SearchOpCounterUpdateRawMetricThresholdView",
+            "SEARCH_PROCESS_THROTTLING": "#/components/schemas/SearchProcessThrottlingRawMetricThresholdView",
             "SEARCH_REPLICATION_LAG": "#/components/schemas/SearchReplicationLagTimeMetricThresholdView",
             "SWAP_USAGE_FREE": "#/components/schemas/SwapUsageFreeDataMetricThresholdView",
             "SWAP_USAGE_USED": "#/components/schemas/SwapUsageUsedDataMetricThresholdView",
@@ -54844,34 +54944,6 @@
           }
         }
       },
-      "SearchProcessThrottlingRawMetricThresholdView": {
-        "required": ["metricName"],
-        "type": "object",
-        "properties": {
-          "metricName": {
-            "type": "string",
-            "description": "Human-readable label that identifies the metric against which MongoDB Cloud checks the configured `metricThreshold.threshold`."
-          },
-          "mode": {
-            "type": "string",
-            "description": "MongoDB Cloud computes the current metric value as an average.",
-            "enum": ["AVERAGE"]
-          },
-          "operator": {
-            "type": "string",
-            "description": "Comparison operator to apply when checking the current metric value.",
-            "enum": ["LESS_THAN", "GREATER_THAN"]
-          },
-          "threshold": {
-            "type": "number",
-            "description": "Value of metric that, when exceeded, triggers an alert.",
-            "format": "double"
-          },
-          "units": {
-            "$ref": "#/components/schemas/RawMetricUnits"
-          }
-        }
-      },
       "SearchMaxNgramFieldsIndexedRawMetricThresholdView": {
         "required": ["metricName"],
         "type": "object",
@@ -55097,6 +55169,34 @@
         }
       },
       "SearchOpCounterUpdateRawMetricThresholdView": {
+        "required": ["metricName"],
+        "type": "object",
+        "properties": {
+          "metricName": {
+            "type": "string",
+            "description": "Human-readable label that identifies the metric against which MongoDB Cloud checks the configured `metricThreshold.threshold`."
+          },
+          "mode": {
+            "type": "string",
+            "description": "MongoDB Cloud computes the current metric value as an average.",
+            "enum": ["AVERAGE"]
+          },
+          "operator": {
+            "type": "string",
+            "description": "Comparison operator to apply when checking the current metric value.",
+            "enum": ["LESS_THAN", "GREATER_THAN"]
+          },
+          "threshold": {
+            "type": "number",
+            "description": "Value of metric that, when exceeded, triggers an alert.",
+            "format": "double"
+          },
+          "units": {
+            "$ref": "#/components/schemas/RawMetricUnits"
+          }
+        }
+      },
+      "SearchProcessThrottlingRawMetricThresholdView": {
         "required": ["metricName"],
         "type": "object",
         "properties": {
@@ -57424,6 +57524,9 @@
               "xgen-IPA-124-array-max-items": "Schema predates IPA validation."
             }
           },
+          "metricThreshold": {
+            "$ref": "#/components/schemas/StreamProcessorMetricThreshold"
+          },
           "notifications": {
             "maxItems": 25,
             "minItems": 1,
@@ -57437,7 +57540,7 @@
             "$ref": "#/components/schemas/EventSeverity"
           },
           "threshold": {
-            "$ref": "#/components/schemas/StreamProcessorMetricThreshold"
+            "$ref": "#/components/schemas/DeprecatedStreamProcessorMetricThreshold"
           },
           "updated": {
             "type": "string",
