@@ -12143,6 +12143,7 @@ components:
                             - HOST_MONGOT_APPROACHING_STOP_REPLICATION
                             - HOST_MONGOT_PAUSE_INITIAL_SYNC
                             - HOST_SEARCH_NODE_INDEX_FAILED
+                            - HOST_SEARCH_PROCESS_THROTTLING
                             - HOST_EXTERNAL_LOG_SINK_EXPORT_DOWN
                             - HOST_NOT_ENOUGH_DISK_SPACE
                             - SSH_KEY_NDS_HOST_ACCESS_REQUESTED
@@ -12418,6 +12419,7 @@ components:
                             - HOST_MONGOT_APPROACHING_STOP_REPLICATION
                             - HOST_MONGOT_PAUSE_INITIAL_SYNC
                             - HOST_SEARCH_NODE_INDEX_FAILED
+                            - HOST_SEARCH_PROCESS_THROTTLING
                             - HOST_EXTERNAL_LOG_SINK_EXPORT_DOWN
                             - HOST_NOT_ENOUGH_DISK_SPACE
                             - SSH_KEY_NDS_HOST_ACCESS_REQUESTED
@@ -15650,6 +15652,8 @@ components:
                     - HOST_MONGOT_RESTARTED
                     - HOST_SEARCH_NODE_UNBLOCKED
                     - HOST_SEARCH_NODE_INDEX_FAILED
+                    - HOST_SEARCH_PROCESS_NOT_THROTTLING
+                    - HOST_SEARCH_PROCESS_THROTTLING
                     - HOST_EXTERNAL_LOG_SINK_EXPORT_DOWN
                     - HOST_EXTERNAL_LOG_SINK_EXPORT_RESUMED
                     - HOST_ENOUGH_DISK_SPACE
@@ -19754,6 +19758,8 @@ components:
                 - HOST_MONGOT_RESTARTED
                 - HOST_SEARCH_NODE_UNBLOCKED
                 - HOST_SEARCH_NODE_INDEX_FAILED
+                - HOST_SEARCH_PROCESS_NOT_THROTTLING
+                - HOST_SEARCH_PROCESS_THROTTLING
                 - HOST_EXTERNAL_LOG_SINK_EXPORT_DOWN
                 - HOST_EXTERNAL_LOG_SINK_EXPORT_RESUMED
                 - HOST_ENOUGH_DISK_SPACE
@@ -19788,6 +19794,7 @@ components:
                 - HOST_MONGOT_APPROACHING_STOP_REPLICATION
                 - HOST_MONGOT_PAUSE_INITIAL_SYNC
                 - HOST_SEARCH_NODE_INDEX_FAILED
+                - HOST_SEARCH_PROCESS_THROTTLING
                 - HOST_EXTERNAL_LOG_SINK_EXPORT_DOWN
                 - HOST_NOT_ENOUGH_DISK_SPACE
                 - SSH_KEY_NDS_HOST_ACCESS_REQUESTED
@@ -37420,7 +37427,7 @@ info:
     termsOfService: https://www.mongodb.com/mongodb-management-service-terms-and-conditions
     title: MongoDB Atlas Administration API
     version: "2.0"
-    x-xgen-sha: a8e3fdeca60367560104b070102fcfefd8dc553f
+    x-xgen-sha: 1bf2b97e228b066443a95c75d1b07fe2d7f8497e
 openapi: 3.0.1
 paths:
     /api/atlas/v2:
