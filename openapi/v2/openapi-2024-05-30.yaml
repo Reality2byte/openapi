@@ -15713,6 +15713,7 @@ components:
                     - PROJECT_SCHEDULED_MAINTENANCE
                     - PROJECT_LIMIT_UPDATED
                     - PROJECT_ENABLE_EXTENDED_STORAGE_SIZES_UPDATED
+                    - PROJECT_COLLECT_DATABASE_STATISTICS_UPDATED
                     - OS_MAINTENANCE
                     - OS_MAINTENANCE_RESTART
                     - OS_MAINTENANCE_REPLACEMENT
@@ -15867,6 +15868,8 @@ components:
                     - ATLAS_SQL_SCHEDULED_UPDATE_REMOVED
                     - CLUSTER_INSTANCE_DISABLED
                     - CLUSTER_INSTANCE_ENABLED
+                    - SEARCH_HOST_PAUSE_ALL_INITIAL_SYNCS
+                    - SEARCH_HOST_DISABLE_FTS
                     - CLUSTER_BLOCK_WRITE
                     - CLUSTER_UNBLOCK_WRITE
                     - KMIP_KEY_ROTATION_SCHEDULED
@@ -24459,6 +24462,7 @@ components:
                 - PROJECT_SCHEDULED_MAINTENANCE
                 - PROJECT_LIMIT_UPDATED
                 - PROJECT_ENABLE_EXTENDED_STORAGE_SIZES_UPDATED
+                - PROJECT_COLLECT_DATABASE_STATISTICS_UPDATED
                 - OS_MAINTENANCE
                 - OS_MAINTENANCE_RESTART
                 - OS_MAINTENANCE_REPLACEMENT
@@ -24613,6 +24617,8 @@ components:
                 - ATLAS_SQL_SCHEDULED_UPDATE_REMOVED
                 - CLUSTER_INSTANCE_DISABLED
                 - CLUSTER_INSTANCE_ENABLED
+                - SEARCH_HOST_PAUSE_ALL_INITIAL_SYNCS
+                - SEARCH_HOST_DISABLE_FTS
                 - CLUSTER_BLOCK_WRITE
                 - CLUSTER_UNBLOCK_WRITE
                 - KMIP_KEY_ROTATION_SCHEDULED
@@ -37350,7 +37356,7 @@ info:
     termsOfService: https://www.mongodb.com/mongodb-management-service-terms-and-conditions
     title: MongoDB Atlas Administration API
     version: "2.0"
-    x-xgen-sha: 675ac7d5f72adfd2e7e1b3366fc1023c96658a18
+    x-xgen-sha: f7815252fada63b6c5b32652876ba1b2b9287703
 openapi: 3.0.1
 paths:
     /api/atlas/v2:
