@@ -45332,7 +45332,7 @@
     "termsOfService": "https://www.mongodb.com/mongodb-management-service-terms-and-conditions",
     "title": "MongoDB Atlas Administration API",
     "version": "2.0",
-    "x-xgen-sha": "e549a2e1b9be9e5a01523307f6811862175eea20"
+    "x-xgen-sha": "f375b4de6004c37f0f7479191bc5fefbf62462c7"
   },
   "openapi": "3.0.1",
   "paths": {
