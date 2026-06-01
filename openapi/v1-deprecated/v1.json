@@ -17974,8 +17974,7 @@
               "MAINTENANCE_WAVE_ASSIGNMENT_MODIFIED",
               "MAINTENANCE_WAVE_ASSIGNMENT_REMOVED",
               "CLUSTER_MONGUARD_ENABLED",
-              "CLUSTER_MONGUARD_DISABLED",
-              "CLUSTER_APPLY_CONNECTION_RATE_LIMIT_REQUESTED"
+              "CLUSTER_MONGUARD_DISABLED"
             ],
             "title": "Atlas Audit Types",
             "type": "string",
@@ -27845,8 +27844,7 @@
           "MAINTENANCE_WAVE_ASSIGNMENT_MODIFIED",
           "MAINTENANCE_WAVE_ASSIGNMENT_REMOVED",
           "CLUSTER_MONGUARD_ENABLED",
-          "CLUSTER_MONGUARD_DISABLED",
-          "CLUSTER_APPLY_CONNECTION_RATE_LIMIT_REQUESTED"
+          "CLUSTER_MONGUARD_DISABLED"
         ],
         "example": "CLUSTER_CREATED",
         "title": "Atlas Audit Types",
