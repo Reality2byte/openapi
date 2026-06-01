@@ -1889,7 +1889,7 @@ components:
             description: Group of settings that configures a subset of the advanced configuration details.
             properties:
                 customOpensslCipherConfigTls12:
-                    description: The custom OpenSSL cipher suite list for TLS 1.2. This field is only valid when `tlsCipherConfigMode` is set to `CUSTOM`.
+                    description: The custom OpenSSL cipher suite list for TLS 1.2. Requires `tlsCipherConfigMode` = `CUSTOM`; when `tlsCipherConfigMode` is omitted, supplying a non-empty list infers `CUSTOM`.
                     externalDocs:
                         description: This option corresponds to the `opensslCipherConfig` `mongod` configuration file option.
                         url: https://www.mongodb.com/docs/manual/reference/parameters/#mongodb-parameter-param.opensslCipherConfig
@@ -1900,7 +1900,7 @@ components:
                         type: string
                     type: array
                 customOpensslCipherConfigTls13:
-                    description: The custom OpenSSL cipher suite list for TLS 1.3. This field is only valid when `tlsCipherConfigMode` is set to `CUSTOM`.
+                    description: The custom OpenSSL cipher suite list for TLS 1.3. Requires `tlsCipherConfigMode` = `CUSTOM`; when `tlsCipherConfigMode` is omitted, supplying a non-empty list infers `CUSTOM`.
                     externalDocs:
                         description: This option corresponds to the `opensslCipherSuiteConfig` `mongod` configuration file option.
                         url: https://www.mongodb.com/docs/manual/reference/parameters/#mongodb-parameter-param.opensslCipherSuiteConfig
@@ -8345,7 +8345,7 @@ components:
                     format: int32
                     type: integer
                 customOpensslCipherConfigTls12:
-                    description: The custom OpenSSL cipher suite list for TLS 1.2. This field is only valid when `tlsCipherConfigMode` is set to `CUSTOM`.
+                    description: The custom OpenSSL cipher suite list for TLS 1.2. Requires `tlsCipherConfigMode` = `CUSTOM`; when `tlsCipherConfigMode` is omitted, supplying a non-empty list infers `CUSTOM`.
                     externalDocs:
                         description: This option corresponds to the `opensslCipherConfig` `mongod` configuration file option.
                         url: https://www.mongodb.com/docs/manual/reference/parameters/#mongodb-parameter-param.opensslCipherConfig
@@ -8356,7 +8356,7 @@ components:
                         type: string
                     type: array
                 customOpensslCipherConfigTls13:
-                    description: The custom OpenSSL cipher suite list for TLS 1.3. This field is only valid when `tlsCipherConfigMode` is set to `CUSTOM`.
+                    description: The custom OpenSSL cipher suite list for TLS 1.3. Requires `tlsCipherConfigMode` = `CUSTOM`; when `tlsCipherConfigMode` is omitted, supplying a non-empty list infers `CUSTOM`.
                     externalDocs:
                         description: This option corresponds to the `opensslCipherSuiteConfig` `mongod` configuration file option.
                         url: https://www.mongodb.com/docs/manual/reference/parameters/#mongodb-parameter-param.opensslCipherSuiteConfig
@@ -35894,7 +35894,7 @@ info:
     termsOfService: https://www.mongodb.com/mongodb-management-service-terms-and-conditions
     title: MongoDB Atlas Administration API
     version: "2.0"
-    x-xgen-sha: be032b0b02240f24eea41d0cf0082df52686d112
+    x-xgen-sha: 2e90e387cf38b3c9bb29e9094470bf6853b04717
 openapi: 3.0.1
 paths:
     /api/atlas/v2:

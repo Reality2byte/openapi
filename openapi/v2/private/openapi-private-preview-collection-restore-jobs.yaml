@@ -735,7 +735,7 @@ info:
     termsOfService: https://www.mongodb.com/mongodb-management-service-terms-and-conditions
     title: MongoDB Atlas Administration API
     version: "2.0"
-    x-xgen-sha: be032b0b02240f24eea41d0cf0082df52686d112
+    x-xgen-sha: 2e90e387cf38b3c9bb29e9094470bf6853b04717
 openapi: 3.0.1
 paths:
     /api/atlas/v2/groups/{groupId}/clusters/{clusterName}/collectionRestoreJobs:
