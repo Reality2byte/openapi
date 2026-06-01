@@ -15924,7 +15924,6 @@ components:
                     - MAINTENANCE_WAVE_ASSIGNMENT_REMOVED
                     - CLUSTER_MONGUARD_ENABLED
                     - CLUSTER_MONGUARD_DISABLED
-                    - CLUSTER_APPLY_CONNECTION_RATE_LIMIT_REQUESTED
                   title: Atlas Audit Types
                   type: string
                 - enum:
@@ -24702,7 +24701,6 @@ components:
                 - MAINTENANCE_WAVE_ASSIGNMENT_REMOVED
                 - CLUSTER_MONGUARD_ENABLED
                 - CLUSTER_MONGUARD_DISABLED
-                - CLUSTER_APPLY_CONNECTION_RATE_LIMIT_REQUESTED
             example: CLUSTER_CREATED
             title: Atlas Audit Types
             type: string
@@ -37535,7 +37533,7 @@ info:
     termsOfService: https://www.mongodb.com/mongodb-management-service-terms-and-conditions
     title: MongoDB Atlas Administration API
     version: "2.0"
-    x-xgen-sha: 2ff4dc76cdd4a73d8b0aa96f4d8a0fec5bc6f0f1
+    x-xgen-sha: be032b0b02240f24eea41d0cf0082df52686d112
 openapi: 3.0.1
 paths:
     /api/atlas/v2:
