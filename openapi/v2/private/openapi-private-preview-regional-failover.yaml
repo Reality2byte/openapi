@@ -1193,7 +1193,7 @@ info:
     termsOfService: https://www.mongodb.com/mongodb-management-service-terms-and-conditions
     title: MongoDB Atlas Administration API
     version: "2.0"
-    x-xgen-sha: 2e90e387cf38b3c9bb29e9094470bf6853b04717
+    x-xgen-sha: f649264b3d344177656e0d3cc8e0626a7737095d
 openapi: 3.0.1
 paths:
     /api/atlas/v2/groups/{groupId}/streams/{tenantName}:
