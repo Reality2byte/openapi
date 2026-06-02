@@ -578,8 +578,8 @@
                 }
               },
               "volumeType": {
-                "description": "Disk Input/Output Operations per Second (IOPS) setting for Amazon Web Services (AWS) storage that you configure only for AWS. Specify whether Disk Input/Output Operations per Second (IOPS) must not exceed the default Input/Output Operations per Second (IOPS) rate for the selected volume size (`STANDARD`), or must fall within the allowable Input/Output Operations per Second (IOPS) range for the selected volume size (`PROVISIONED`). You must set this value to (`PROVISIONED`) for NVMe clusters.",
-                "enum": ["STANDARD", "PROVISIONED"],
+                "description": "Disk Input/Output Operations per Second (IOPS) setting for Amazon Web Services (AWS) storage that you configure only for AWS. Specify whether Disk Input/Output Operations per Second (IOPS) must not exceed the default Input/Output Operations per Second (IOPS) rate for the selected volume size (`STANDARD`), or must fall within the allowable Input/Output Operations per Second (IOPS) range for the selected volume size (`PROVISIONED` or `HIGH_PERFORMANCE`). NVMe clusters require either `PROVISIONED` or `HIGH_PERFORMANCE`.",
+                "enum": ["STANDARD", "PROVISIONED", "HIGH_PERFORMANCE"],
                 "type": "string"
               }
             },
@@ -801,8 +801,8 @@
           },
           "ebsVolumeType": {
             "default": "STANDARD",
-            "description": "Type of storage you want to attach to your AWS-provisioned cluster.\n\n- `STANDARD` volume types can't exceed the default input/output operations per second (IOPS) rate for the selected volume size. \n\n- `PROVISIONED` volume types must fall within the allowable IOPS range for the selected volume size. You must set this value to (`PROVISIONED`) for NVMe clusters.",
-            "enum": ["STANDARD", "PROVISIONED"],
+            "description": "Type of storage you want to attach to your AWS-provisioned cluster.\n\n- `STANDARD` volume types can't exceed the default input/output operations per second (IOPS) rate for the selected volume size. \n\n- `PROVISIONED` volume types must fall within the allowable IOPS range for the selected volume size.\n\n- `HIGH_PERFORMANCE` volume types use IO2 EBS volumes and must fall within the allowable IOPS range for the selected volume size.\n\nNVMe clusters require either `PROVISIONED` or `HIGH_PERFORMANCE`.",
+            "enum": ["STANDARD", "PROVISIONED", "HIGH_PERFORMANCE"],
             "type": "string"
           },
           "instanceSize": {
