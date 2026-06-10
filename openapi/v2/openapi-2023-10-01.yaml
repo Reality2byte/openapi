@@ -35898,7 +35898,7 @@ info:
     termsOfService: https://www.mongodb.com/mongodb-management-service-terms-and-conditions
     title: MongoDB Atlas Administration API
     version: "2.0"
-    x-xgen-sha: 564c8173898c69e15706021eee8cc55d634daa76
+    x-xgen-sha: 1abde3586f3d3464324719b73d8eb14d1dcd69e1
 openapi: 3.0.1
 paths:
     /api/atlas/v2:
