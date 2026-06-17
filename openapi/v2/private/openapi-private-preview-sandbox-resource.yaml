@@ -1084,6 +1084,7 @@ components:
                     enum:
                         - FULLY_WARMED
                         - VISIBLE_EARLIER
+                        - ENHANCED_FULLY_WARMED
                     externalDocs:
                         description: Reduce Secondary Disk Warming Impact
                         url: https://docs.atlas.mongodb.com/reference/replica-set-tags/#reduce-secondary-disk-warming-impact
@@ -1716,7 +1717,7 @@ info:
     termsOfService: https://www.mongodb.com/mongodb-management-service-terms-and-conditions
     title: MongoDB Atlas Administration API
     version: "2.0"
-    x-xgen-sha: 51d1ffaea55034e002aeb6329745dd9d6773c97c
+    x-xgen-sha: 577c502627f2b9d6d8c28d4a0b693faa032b628c
 openapi: 3.0.1
 paths:
     /api/atlas/v2/groups/{groupId}/sandbox/{sandboxConfigId}:generateClusterDescription:

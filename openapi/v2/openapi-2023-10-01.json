@@ -1437,7 +1437,8 @@
             "description": "Disk warming mode selection.",
             "enum": [
               "FULLY_WARMED",
-              "VISIBLE_EARLIER"
+              "VISIBLE_EARLIER",
+              "ENHANCED_FULLY_WARMED"
             ],
             "externalDocs": {
               "description": "Reduce Secondary Disk Warming Impact",
@@ -3099,8 +3100,79 @@
         },
         "type": "object"
       },
+      "ApiSearchDeploymentEffectiveSpecView": {
+        "properties": {
+          "cloudProvider": {
+            "description": "Cloud service provider on which Search Nodes are provisioned.",
+            "enum": [
+              "AWS",
+              "AZURE",
+              "GCP"
+            ],
+            "readOnly": true,
+            "type": "string"
+          },
+          "instanceSize": {
+            "description": "Hardware specification for the Search Node instance sizes.",
+            "enum": [
+              "S20_HIGHCPU_NVME",
+              "S30_HIGHCPU_NVME",
+              "S40_HIGHCPU_NVME",
+              "S50_HIGHCPU_NVME",
+              "S60_HIGHCPU_NVME",
+              "S70_HIGHCPU_NVME",
+              "S80_HIGHCPU_NVME",
+              "S30_LOWCPU_NVME",
+              "S40_LOWCPU_NVME",
+              "S50_LOWCPU_NVME",
+              "S60_LOWCPU_NVME",
+              "S70_LOWCPU_NVME",
+              "S80_LOWCPU_NVME",
+              "S90_LOWCPU_NVME",
+              "S100_LOWCPU_NVME",
+              "S110_LOWCPU_NVME",
+              "S120_LOWCPU_NVME",
+              "S130_LOWCPU_NVME",
+              "S135_LOWCPU_NVME",
+              "S140_LOWCPU_NVME",
+              "S40_STORAGE_NVME",
+              "S50_STORAGE_NVME",
+              "S60_STORAGE_NVME",
+              "S80_STORAGE_NVME",
+              "S90_STORAGE_NVME"
+            ],
+            "readOnly": true,
+            "type": "string"
+          },
+          "nodeCount": {
+            "description": "Number of Search Nodes in this region.",
+            "example": 2,
+            "format": "int32",
+            "maximum": 32,
+            "minimum": 2,
+            "readOnly": true,
+            "type": "integer"
+          },
+          "regionName": {
+            "description": "Cloud provider region where Search Nodes are provisioned.",
+            "example": "US_EAST_1",
+            "readOnly": true,
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
       "ApiSearchDeploymentRequestSpecView": {
         "properties": {
+          "cloudProvider": {
+            "description": "Cloud service provider that hosts the Search Nodes in this region. Required when a region is specified.",
+            "enum": [
+              "AWS",
+              "AZURE",
+              "GCP"
+            ],
+            "type": "string"
+          },
           "instanceSize": {
             "description": "Hardware specification for the Search Node instance sizes.",
             "enum": [
@@ -3139,6 +3211,11 @@
             "maximum": 32,
             "minimum": 2,
             "type": "integer"
+          },
+          "regionName": {
+            "description": "Cloud provider region where Search Nodes are provisioned. Required when the request configures more than one region; optional for single-region requests.",
+            "example": "US_EAST_1",
+            "type": "string"
           }
         },
         "required": [
@@ -3148,6 +3225,14 @@
       },
       "ApiSearchDeploymentRequestView": {
         "properties": {
+          "defaultNodeCount": {
+            "description": "Default number of Search Nodes per region. Applied to a region without an explicit override.",
+            "example": 2,
+            "format": "int32",
+            "maximum": 32,
+            "minimum": 2,
+            "type": "integer"
+          },
           "specs": {
             "description": "List of settings that configure the Search Nodes for your cluster. Provide one element per region when configuring asymmetric deployments; a single element applies to all regions.",
             "items": {
@@ -3164,6 +3249,14 @@
       },
       "ApiSearchDeploymentResponseView": {
         "properties": {
+          "effectiveSpecs": {
+            "description": "List of settings that configure the Search Nodes for your cluster, with per-region detail including the region name and cloud provider.",
+            "items": {
+              "$ref": "#/components/schemas/ApiSearchDeploymentEffectiveSpecView"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
           "encryptionAtRestProvider": {
             "description": "Cloud service provider that manages your customer keys to provide an additional layer of Encryption At Rest for the cluster.",
             "enum": [
@@ -3194,7 +3287,8 @@
             "type": "string"
           },
           "specs": {
-            "description": "List of settings that configure the Search Nodes for your cluster. The configuration will be returned for each region and shard.",
+            "deprecated": true,
+            "description": "Deprecated. `specs` will be removed in a future release. We strongly recommend that you use `effectiveSpecs` instead.",
             "items": {
               "$ref": "#/components/schemas/ApiSearchDeploymentSpecView"
             },
@@ -14364,7 +14458,11 @@
               "SAMPLE_STREAM_PROCESSOR",
               "LIST_STREAM_PROCESSORS",
               "LIST_CONNECTIONS",
-              "STREAM_PROCESSOR_STATS"
+              "STREAM_PROCESSOR_STATS",
+              "CREATE_SEARCH_INDEX",
+              "DROP_SEARCH_INDEX",
+              "LIST_SEARCH_INDEXES",
+              "UPDATE_SEARCH_INDEX"
             ],
             "type": "string"
           },
@@ -15975,13 +16073,14 @@
               },
               {
                 "enum": [
-                  "AI_MODELS_API_KEY_CREATED",
-                  "AI_MODELS_API_KEY_DELETED",
-                  "AI_MODELS_API_KEY_UPDATED",
-                  "AI_MODELS_RATE_LIMIT_UPDATED",
-                  "AI_MODELS_RATE_LIMIT_RESET"
+                  "AI_MODELS_APIS_API_KEY_CREATED",
+                  "AI_MODELS_APIS_API_KEY_DELETED",
+                  "AI_MODELS_APIS_API_KEY_UPDATED",
+                  "AI_MODELS_APIS_RATE_LIMIT_UPDATED",
+                  "AI_MODELS_APIS_RATE_LIMIT_RESET",
+                  "AI_MODELS_APIS_RATE_LIMIT_ADMIN_OVERRIDE"
                 ],
-                "title": "Ai Models Event Types",
+                "title": "AI Models APIs Event Types",
                 "type": "string"
               }
             ],
@@ -16190,9 +16289,10 @@
               },
               {
                 "enum": [
-                  "AI_MODELS_USAGE_TIER_UPDATED"
+                  "AI_MODELS_APIS_USAGE_TIER_UPDATED",
+                  "AI_MODELS_APIS_FREE_TOKENS_ADMIN_ADJUSTED"
                 ],
-                "title": "Ai Models Event Types",
+                "title": "AI Models APIs Event Types",
                 "type": "string"
               }
             ],
@@ -19498,6 +19598,7 @@
               "PROJECT_SCHEDULED_MAINTENANCE",
               "PROJECT_LIMIT_UPDATED",
               "PROJECT_ENABLE_EXTENDED_STORAGE_SIZES_UPDATED",
+              "PROJECT_ENABLE_DATA_VALIDATION_UPDATED",
               "PROJECT_COLLECT_DATABASE_STATISTICS_UPDATED",
               "OS_MAINTENANCE",
               "OS_MAINTENANCE_RESTART",
@@ -19690,7 +19791,8 @@
               "MAINTENANCE_WAVE_ASSIGNMENT_MODIFIED",
               "MAINTENANCE_WAVE_ASSIGNMENT_REMOVED",
               "CLUSTER_MONGUARD_ENABLED",
-              "CLUSTER_MONGUARD_DISABLED"
+              "CLUSTER_MONGUARD_DISABLED",
+              "CLUSTER_MONGODB_VERSION_UPDATED"
             ],
             "title": "Atlas Audit Types",
             "type": "string"
@@ -20048,13 +20150,14 @@
           },
           {
             "enum": [
-              "AI_MODELS_API_KEY_CREATED",
-              "AI_MODELS_API_KEY_DELETED",
-              "AI_MODELS_API_KEY_UPDATED",
-              "AI_MODELS_RATE_LIMIT_UPDATED",
-              "AI_MODELS_RATE_LIMIT_RESET"
+              "AI_MODELS_APIS_API_KEY_CREATED",
+              "AI_MODELS_APIS_API_KEY_DELETED",
+              "AI_MODELS_APIS_API_KEY_UPDATED",
+              "AI_MODELS_APIS_RATE_LIMIT_UPDATED",
+              "AI_MODELS_APIS_RATE_LIMIT_RESET",
+              "AI_MODELS_APIS_RATE_LIMIT_ADMIN_OVERRIDE"
             ],
-            "title": "Ai Models Event Types",
+            "title": "AI Models APIs Event Types",
             "type": "string"
           }
         ],
@@ -20347,6 +20450,7 @@
               "SANDBOX_DISABLED_FOR_ORG",
               "SANDBOX_CONFIG_DELETED",
               "SANDBOX_TEMPLATE_UPDATED",
+              "ORG_DELEGATION_SETTINGS_UPDATED",
               "ORGANIZATION_VOYAGE_SETTINGS_CREATED",
               "ORGANIZATION_VOYAGE_SETTINGS_DELETED",
               "ORG_WAVE_ASSIGNMENT_MODE_MANUAL",
@@ -20440,9 +20544,10 @@
           },
           {
             "enum": [
-              "AI_MODELS_USAGE_TIER_UPDATED"
+              "AI_MODELS_APIS_USAGE_TIER_UPDATED",
+              "AI_MODELS_APIS_FREE_TOKENS_ADMIN_ADJUSTED"
             ],
-            "title": "Ai Models Event Types",
+            "title": "AI Models APIs Event Types",
             "type": "string"
           }
         ],
@@ -23922,6 +24027,10 @@
             "description": "Flag that indicates whether to enable the passing of sample field values with the use of generative AI features in the Data Explorer for the specified project.",
             "type": "boolean"
           },
+          "isDataValidationEnabled": {
+            "description": "Flag that indicates whether data validation is enabled for all clusters in the specified project.",
+            "type": "boolean"
+          },
           "isExtendedStorageSizesEnabled": {
             "description": "Flag that indicates whether to enable extended storage sizes for the specified project.",
             "type": "boolean"
@@ -27039,7 +27148,8 @@
             "description": "Disk warming mode selection.",
             "enum": [
               "FULLY_WARMED",
-              "VISIBLE_EARLIER"
+              "VISIBLE_EARLIER",
+              "ENHANCED_FULLY_WARMED"
             ],
             "externalDocs": {
               "description": "Reduce Secondary Disk Warming Impact",
@@ -27387,7 +27497,8 @@
             "description": "Disk warming mode selection.",
             "enum": [
               "FULLY_WARMED",
-              "VISIBLE_EARLIER"
+              "VISIBLE_EARLIER",
+              "ENHANCED_FULLY_WARMED"
             ],
             "externalDocs": {
               "description": "Reduce Secondary Disk Warming Impact",
@@ -30204,6 +30315,7 @@
           "PROJECT_SCHEDULED_MAINTENANCE",
           "PROJECT_LIMIT_UPDATED",
           "PROJECT_ENABLE_EXTENDED_STORAGE_SIZES_UPDATED",
+          "PROJECT_ENABLE_DATA_VALIDATION_UPDATED",
           "PROJECT_COLLECT_DATABASE_STATISTICS_UPDATED",
           "OS_MAINTENANCE",
           "OS_MAINTENANCE_RESTART",
@@ -30396,7 +30508,8 @@
           "MAINTENANCE_WAVE_ASSIGNMENT_MODIFIED",
           "MAINTENANCE_WAVE_ASSIGNMENT_REMOVED",
           "CLUSTER_MONGUARD_ENABLED",
-          "CLUSTER_MONGUARD_DISABLED"
+          "CLUSTER_MONGUARD_DISABLED",
+          "CLUSTER_MONGODB_VERSION_UPDATED"
         ],
         "example": "CLUSTER_CREATED",
         "title": "Atlas Audit Types",
@@ -32974,6 +33087,7 @@
           "SANDBOX_DISABLED_FOR_ORG",
           "SANDBOX_CONFIG_DELETED",
           "SANDBOX_TEMPLATE_UPDATED",
+          "ORG_DELEGATION_SETTINGS_UPDATED",
           "ORGANIZATION_VOYAGE_SETTINGS_CREATED",
           "ORGANIZATION_VOYAGE_SETTINGS_DELETED",
           "ORG_WAVE_ASSIGNMENT_MODE_MANUAL",
@@ -41843,6 +41957,48 @@
         ],
         "type": "object"
       },
+      "StreamsProcessorStatus": {
+        "description": "Desired status change to apply to a tenant's stream processors.",
+        "properties": {
+          "links": {
+            "description": "List of one or more Uniform Resource Locators (URLs) that point to API sub-resources, related API resources, or both. RFC 5988 outlines these relationships.",
+            "externalDocs": {
+              "description": "Web Linking Specification (RFC 5988)",
+              "url": "https://datatracker.ietf.org/doc/html/rfc5988"
+            },
+            "items": {
+              "$ref": "#/components/schemas/Link"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
+          "mode": {
+            "description": "Strategy for the processor: GRACEFUL - attempt to stop the processor, error if processor cannot be stopped. if stop was successful, start the processor in the new region with the latest checkpoint.  FORCED - attempt to stop the processor, proceed to starting the processor in the new region with checkpoints disabled regardless of whether or not the stop succeeds.",
+            "enum": [
+              "GRACEFUL",
+              "FORCED"
+            ],
+            "type": "string"
+          },
+          "region": {
+            "description": "Name of the region against which to apply the status change. Required when `status` is `FAILED_OVER`; optional otherwise.",
+            "type": "string"
+          },
+          "status": {
+            "description": "Represents the desired action to apply to stream processors within a workspace, such as starting all processors, stopping all processors, or performing a bulk regional failover.",
+            "enum": [
+              "STARTED",
+              "STOPPED",
+              "FAILED_OVER"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "status"
+        ],
+        "type": "object"
+      },
       "StreamsPublicPrivateLinkNetworking": {
         "description": "Networking configuration for connections that support `PUBLIC` and `PRIVATE_LINK` access types. For GCP connections, use `PRIVATE_LINK` for GCP Private Service Connect (PSC).",
         "properties": {
@@ -42051,7 +42207,7 @@
         "type": "object"
       },
       "StreamsTenantUpdateRequest": {
-        "description": "Details to update a stream tenant.",
+        "description": "Details to update a stream tenant, optionally accompanied by a processor status change (for example, triggering bulk regional failover).",
         "properties": {
           "cloudProvider": {
             "description": "Human-readable label that identifies the cloud provider.",
@@ -42075,6 +42231,9 @@
             },
             "readOnly": true,
             "type": "array"
+          },
+          "processorStatus": {
+            "$ref": "#/components/schemas/StreamsProcessorStatus"
           },
           "region": {
             "$ref": "#/components/schemas/BaseStreamsRegion"
@@ -45539,7 +45698,7 @@
     "termsOfService": "https://www.mongodb.com/mongodb-management-service-terms-and-conditions",
     "title": "MongoDB Atlas Administration API",
     "version": "2.0",
-    "x-xgen-sha": "51d1ffaea55034e002aeb6329745dd9d6773c97c"
+    "x-xgen-sha": "577c502627f2b9d6d8c28d4a0b693faa032b628c"
   },
   "openapi": "3.0.1",
   "paths": {
@@ -65003,7 +65162,7 @@
         "operationId": "deleteGroupLimit",
         "parameters": [
           {
-            "description": "Human-readable label that identifies this project limit.\n\n| Limit Name | Description | Default | API Override Limit |\n| --- | --- | --- | --- |\n| `atlas.project.deployment.clusters` | Limit on the number of clusters in this project | 25 | 100 |\n| `atlas.project.deployment.nodesPerPrivateLinkRegion` | Limit on the number of nodes per Private Link region in this project | 50 | 90 |\n| `atlas.project.security.databaseAccess.customRoles` | Limit on the number of custom roles in this project | 100 | 1400 |\n| `atlas.project.security.databaseAccess.users` | Limit on the number of database users in this project | 100 | 100 |\n| `atlas.project.security.networkAccess.crossRegionEntries` | Limit on the number of cross-region network access entries in this project | 40 | 220 |\n| `atlas.project.security.networkAccess.entries` | Limit on the number of network access entries in this project | 200 | 20 |\n| `dataFederation.bytesProcessed.query` | Limit on the number of bytes processed during a single Data Federation query | N/A | N/A |\n| `dataFederation.bytesProcessed.daily` | Limit on the number of bytes processed across all Data Federation tenants for the current day | N/A | N/A |\n| `dataFederation.bytesProcessed.weekly` | Limit on the number of bytes processed across all Data Federation tenants for the current week | N/A | N/A |\n| `dataFederation.bytesProcessed.monthly` | Limit on the number of bytes processed across all Data Federation tenants for the current month | N/A | N/A |\n| `atlas.project.deployment.privateServiceConnectionsPerRegionGroup` | Number of Private Service Connections per Region Group | 50 | 100|\n| `atlas.project.deployment.privateServiceConnectionsSubnetMask` | Subnet mask for GCP PSC Networks. Has lower limit of 20. | 27 | 27|\n",
+            "description": "Human-readable label that identifies this project limit.\n\n| Limit Name | Description | Default | API Override Limit |\n| --- | --- | --- | --- |\n| `atlas.project.deployment.clusters` | Limit on the number of clusters in this project | 25 | 100 |\n| `atlas.project.deployment.nodesPerPrivateLinkRegion` | Limit on AWS PrivateLink addressable target nodes per region in this project. For sharded clusters using optimized (load-balanced) connection strings, `currentUsage` doesn't grow with the number of `mongos` — the load balancer is counted as a single addressable target regardless of how many `mongos` sit behind it. | 50 | 90 |\n| `atlas.project.security.databaseAccess.customRoles` | Limit on the number of custom roles in this project | 100 | 1400 |\n| `atlas.project.security.databaseAccess.users` | Limit on the number of database users in this project | 100 | 100 |\n| `atlas.project.security.networkAccess.crossRegionEntries` | Limit on the number of cross-region network access entries in this project | 40 | 220 |\n| `atlas.project.security.networkAccess.entries` | Limit on the number of network access entries in this project | 200 | 20 |\n| `dataFederation.bytesProcessed.query` | Limit on the number of bytes processed during a single Data Federation query | N/A | N/A |\n| `dataFederation.bytesProcessed.daily` | Limit on the number of bytes processed across all Data Federation tenants for the current day | N/A | N/A |\n| `dataFederation.bytesProcessed.weekly` | Limit on the number of bytes processed across all Data Federation tenants for the current week | N/A | N/A |\n| `dataFederation.bytesProcessed.monthly` | Limit on the number of bytes processed across all Data Federation tenants for the current month | N/A | N/A |\n| `atlas.project.deployment.privateServiceConnectionsPerRegionGroup` | Number of Private Service Connections per Region Group | 50 | 100|\n| `atlas.project.deployment.privateServiceConnectionsSubnetMask` | Subnet mask for GCP PSC Networks. Has lower limit of 20. | 27 | 27|\n",
             "in": "path",
             "name": "limitName",
             "required": true,
@@ -65111,7 +65270,7 @@
         "operationId": "getGroupLimit",
         "parameters": [
           {
-            "description": "Human-readable label that identifies this project limit.\n\n| Limit Name | Description | Default | API Override Limit |\n| --- | --- | --- | --- |\n| `atlas.project.deployment.clusters` | Limit on the number of clusters in this project | 25 | 100 |\n| `atlas.project.deployment.nodesPerPrivateLinkRegion` | Limit on the number of nodes per Private Link region in this project | 50 | 90 |\n| `atlas.project.security.databaseAccess.customRoles` | Limit on the number of custom roles in this project | 100 | 1400 |\n| `atlas.project.security.databaseAccess.users` | Limit on the number of database users in this project | 100 | 100 |\n| `atlas.project.security.networkAccess.crossRegionEntries` | Limit on the number of cross-region network access entries in this project | 40 | 220 |\n| `atlas.project.security.networkAccess.entries` | Limit on the number of network access entries in this project | 200 | 20 |\n| `dataFederation.bytesProcessed.query` | Limit on the number of bytes processed during a single Data Federation query | N/A | N/A |\n| `dataFederation.bytesProcessed.daily` | Limit on the number of bytes processed across all Data Federation tenants for the current day | N/A | N/A |\n| `dataFederation.bytesProcessed.weekly` | Limit on the number of bytes processed across all Data Federation tenants for the current week | N/A | N/A |\n| `dataFederation.bytesProcessed.monthly` | Limit on the number of bytes processed across all Data Federation tenants for the current month | N/A | N/A |\n| `atlas.project.deployment.privateServiceConnectionsPerRegionGroup` | Number of Private Service Connections per Region Group | 50 | 100|\n| `atlas.project.deployment.privateServiceConnectionsSubnetMask` | Subnet mask for GCP PSC Networks. Has lower limit of 20. | 27 | 27|\n",
+            "description": "Human-readable label that identifies this project limit.\n\n| Limit Name | Description | Default | API Override Limit |\n| --- | --- | --- | --- |\n| `atlas.project.deployment.clusters` | Limit on the number of clusters in this project | 25 | 100 |\n| `atlas.project.deployment.nodesPerPrivateLinkRegion` | Limit on AWS PrivateLink addressable target nodes per region in this project. For sharded clusters using optimized (load-balanced) connection strings, `currentUsage` doesn't grow with the number of `mongos` — the load balancer is counted as a single addressable target regardless of how many `mongos` sit behind it. | 50 | 90 |\n| `atlas.project.security.databaseAccess.customRoles` | Limit on the number of custom roles in this project | 100 | 1400 |\n| `atlas.project.security.databaseAccess.users` | Limit on the number of database users in this project | 100 | 100 |\n| `atlas.project.security.networkAccess.crossRegionEntries` | Limit on the number of cross-region network access entries in this project | 40 | 220 |\n| `atlas.project.security.networkAccess.entries` | Limit on the number of network access entries in this project | 200 | 20 |\n| `dataFederation.bytesProcessed.query` | Limit on the number of bytes processed during a single Data Federation query | N/A | N/A |\n| `dataFederation.bytesProcessed.daily` | Limit on the number of bytes processed across all Data Federation tenants for the current day | N/A | N/A |\n| `dataFederation.bytesProcessed.weekly` | Limit on the number of bytes processed across all Data Federation tenants for the current week | N/A | N/A |\n| `dataFederation.bytesProcessed.monthly` | Limit on the number of bytes processed across all Data Federation tenants for the current month | N/A | N/A |\n| `atlas.project.deployment.privateServiceConnectionsPerRegionGroup` | Number of Private Service Connections per Region Group | 50 | 100|\n| `atlas.project.deployment.privateServiceConnectionsSubnetMask` | Subnet mask for GCP PSC Networks. Has lower limit of 20. | 27 | 27|\n",
             "in": "path",
             "name": "limitName",
             "required": true,
@@ -65222,7 +65381,7 @@
         "operationId": "setGroupLimit",
         "parameters": [
           {
-            "description": "Human-readable label that identifies this project limit.\n\n| Limit Name | Description | Default | API Override Limit |\n| --- | --- | --- | --- |\n| `atlas.project.deployment.clusters` | Limit on the number of clusters in this project | 25 | 100 |\n| `atlas.project.deployment.nodesPerPrivateLinkRegion` | Limit on the number of nodes per Private Link region in this project | 50 | 90 |\n| `atlas.project.security.databaseAccess.customRoles` | Limit on the number of custom roles in this project | 100 | 1400 |\n| `atlas.project.security.databaseAccess.users` | Limit on the number of database users in this project | 100 | 100 |\n| `atlas.project.security.networkAccess.crossRegionEntries` | Limit on the number of cross-region network access entries in this project | 40 | 220 |\n| `atlas.project.security.networkAccess.entries` | Limit on the number of network access entries in this project | 200 | 20 |\n| `dataFederation.bytesProcessed.query` | Limit on the number of bytes processed during a single Data Federation query | N/A | N/A |\n| `dataFederation.bytesProcessed.daily` | Limit on the number of bytes processed across all Data Federation tenants for the current day | N/A | N/A |\n| `dataFederation.bytesProcessed.weekly` | Limit on the number of bytes processed across all Data Federation tenants for the current week | N/A | N/A |\n| `dataFederation.bytesProcessed.monthly` | Limit on the number of bytes processed across all Data Federation tenants for the current month | N/A | N/A |\n| `atlas.project.deployment.privateServiceConnectionsPerRegionGroup` | Number of Private Service Connections per Region Group | 50 | 100|\n| `atlas.project.deployment.privateServiceConnectionsSubnetMask` | Subnet mask for GCP PSC Networks. Has lower limit of 20. | 27 | 27|\n",
+            "description": "Human-readable label that identifies this project limit.\n\n| Limit Name | Description | Default | API Override Limit |\n| --- | --- | --- | --- |\n| `atlas.project.deployment.clusters` | Limit on the number of clusters in this project | 25 | 100 |\n| `atlas.project.deployment.nodesPerPrivateLinkRegion` | Limit on AWS PrivateLink addressable target nodes per region in this project. For sharded clusters using optimized (load-balanced) connection strings, `currentUsage` doesn't grow with the number of `mongos` — the load balancer is counted as a single addressable target regardless of how many `mongos` sit behind it. | 50 | 90 |\n| `atlas.project.security.databaseAccess.customRoles` | Limit on the number of custom roles in this project | 100 | 1400 |\n| `atlas.project.security.databaseAccess.users` | Limit on the number of database users in this project | 100 | 100 |\n| `atlas.project.security.networkAccess.crossRegionEntries` | Limit on the number of cross-region network access entries in this project | 40 | 220 |\n| `atlas.project.security.networkAccess.entries` | Limit on the number of network access entries in this project | 200 | 20 |\n| `dataFederation.bytesProcessed.query` | Limit on the number of bytes processed during a single Data Federation query | N/A | N/A |\n| `dataFederation.bytesProcessed.daily` | Limit on the number of bytes processed across all Data Federation tenants for the current day | N/A | N/A |\n| `dataFederation.bytesProcessed.weekly` | Limit on the number of bytes processed across all Data Federation tenants for the current week | N/A | N/A |\n| `dataFederation.bytesProcessed.monthly` | Limit on the number of bytes processed across all Data Federation tenants for the current month | N/A | N/A |\n| `atlas.project.deployment.privateServiceConnectionsPerRegionGroup` | Number of Private Service Connections per Region Group | 50 | 100|\n| `atlas.project.deployment.privateServiceConnectionsSubnetMask` | Subnet mask for GCP PSC Networks. Has lower limit of 20. | 27 | 27|\n",
             "in": "path",
             "name": "limitName",
             "required": true,
