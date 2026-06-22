@@ -3372,7 +3372,8 @@
           "MONTREAL_CAN",
           "TOKYO_JPN",
           "SINGAPORE_SGP",
-          "PARIS_FRA"
+          "PARIS_FRA",
+          "SEOUL_KOR"
         ],
         "type": "string"
       },
@@ -42944,6 +42945,14 @@
           "dataProcessRegion": {
             "$ref": "#/components/schemas/StreamsDataProcessRegion"
           },
+          "failoverRegions": {
+            "description": "List of failover regions configured for the stream workspace.",
+            "items": {
+              "$ref": "#/components/schemas/StreamsDataProcessRegion"
+            },
+            "maxItems": 2,
+            "type": "array"
+          },
           "groupId": {
             "description": "Unique 24-hexadecimal character string that identifies the project.",
             "example": "32b6e34b3d91647abb20e7b8",
@@ -42999,6 +43008,14 @@
               "SERVERLESS"
             ],
             "type": "string"
+          },
+          "failoverRegions": {
+            "description": "Failover regions for the stream workspace.",
+            "items": {
+              "$ref": "#/components/schemas/StreamsDataProcessRegion"
+            },
+            "maxItems": 2,
+            "type": "array"
           },
           "links": {
             "description": "List of one or more Uniform Resource Locators (URLs) that point to API sub-resources, related API resources, or both. RFC 5988 outlines these relationships.",
@@ -46478,7 +46495,7 @@
     "termsOfService": "https://www.mongodb.com/mongodb-management-service-terms-and-conditions",
     "title": "MongoDB Atlas Administration API",
     "version": "2.0",
-    "x-xgen-sha": "94341e8052e580b1438a2cbafc7cc0cb1d661aef"
+    "x-xgen-sha": "d7345909d9e80107344a3bbee72fc3e2f4d9bfec"
   },
   "openapi": "3.0.1",
   "paths": {
